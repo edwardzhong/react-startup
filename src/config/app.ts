@@ -1,0 +1,1 @@
+export const api = `http://develop.inaopao.com/backend/api/`;
