@@ -1,7 +1,7 @@
 {
-	"name": "ubtf",
+	"name": "React-app",
 	"version": "1.0.0",
-	"description": "ubt blockly project",
+	"description": "Webpack 5 Quickstart For React",
 	"main": "index.js",
 	"scripts": {
 		"start": "webpack-dev-server --open --config webpack.dev.js",
@@ -10,10 +10,10 @@
 		"eslint": "eslint --fix --ext .js,.ts,.tsx src/"
 	},
 	"keywords": [
-		"babel",
-		"scss",
-		"pug",
-		"webpack 5"
+		"webpack 5",
+		"react",
+		"immer",
+		"styled-components"
 	],
 	"author": "Jeff Zhong",
 	"license": "MIT",
