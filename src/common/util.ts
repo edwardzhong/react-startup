@@ -23,7 +23,7 @@ function randomCode(l = 4) {
   const arr = [];
   const codes = '01234567890123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   while (arr.length < l) {
-    let i = Math.floor(Math.random() * codes.length);
+    const i = Math.floor(Math.random() * codes.length);
     if (arr.indexOf(i) < 0) {
       arr.push(i);
     }

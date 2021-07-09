@@ -11,7 +11,11 @@
   ],
   "globals": {
     "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
+    "SharedArrayBuffer": "readonly",
+    "require":"readonly",
+    "module":"readonly",
+    "process":"readonly",
+    "__dirname":"readonly"
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {

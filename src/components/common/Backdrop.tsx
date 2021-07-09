@@ -21,7 +21,7 @@ const PopLayer = styled.div`
     visibility: visible;
     opacity: 1;
     z-index: 99;`
-  }`
+}`
 
 const Backdrop: React.FC<{ visible: boolean }> = ({ children, visible }) => (
   createPortal(

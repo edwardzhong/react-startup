@@ -1,19 +1,24 @@
-## webpack 5 项目模版
-### 基于以下组件
+# Webpack 5 Quickstart For React
+### Based on the following
 * webpack 5
-* axios
-* babel
-* pug
-* scss
+* typescript
+* react hooks
+* react-router
+* immer
+* styled-components
 
-
-### 安装
-```bash
+### Project setup
+```
 npm install
 ```
 
-### 运行
-```bash
-npm start          # develop
-npm run build      # build
+### Develop
 ```
+npm start
+```
+
+### Production
+```
+npm run build
+```
+
