@@ -15,7 +15,8 @@
     "require":"readonly",
     "module":"readonly",
     "process":"readonly",
-    "__dirname":"readonly"
+    "__dirname":"readonly",
+    "__filename": "readonly"
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {

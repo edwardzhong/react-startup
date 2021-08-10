@@ -26,6 +26,13 @@ module.exports = {
     // 告诉webpack解析模块是去找哪个目录，该配置明确告诉webpack，直接去上一层找node_modules。
     modules: [resolve(__dirname, './node_modules')],
   },
+  cache: {
+    type: 'filesystem',
+    cacheDirectory: resolve(__dirname, '.temp_cache'),
+    buildDependencies: {
+      config: [__filename],
+    },
+  },
   performance: {
     hints: false,
   },
@@ -80,17 +87,17 @@ module.exports = {
         ],
       },
       // {
-      // 	test: /\.js?$/,
-      // 	exclude: /node_modules/,
-      // 	use: ['cache-loader', 'babel-loader'], //'eslint-loader'
-      // },
-      // {
-      // 	test: /\.html$/,
-      // 	use: 'html-loader',
+      //   test: /\.js?$/,
+      //   exclude: /node_modules/,
+      //   use: ['cache-loader', 'babel-loader'], //'eslint-loader'
       // },
       // {
       // 	test: /\.pug$/,
       // 	use: ['html-loader', 'pug-html-loader'],
+      // },
+      // {
+      //   test: /\.html$/,
+      //   use: 'html-loader',
       // },
       // {
       // 	test: /\.scss$/,
@@ -106,7 +113,7 @@ module.exports = {
         test: /\.(eot|ttf|woff|woff2|svg)(\?.+)?$/,
         type: 'asset/resource',
         generator: {
-          filename: 'fonts/[hash:8].[name][ext]', // [ext]前面自带"."
+          filename: 'resource/[name].[hash:8][ext]', // [ext]前面自带"."
         },
       },
       // Webpack4使用url-loader实现
@@ -130,14 +137,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
       filename: 'index.html',
-      favicon: './public/favicon.png',
-      minify: {
-        removeAttributeQuotes: true,
-        removeComments: true,
-        collapseWhitespace: true,
-        removeScriptTypeAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-      },
+      favicon: './public/favicon.png'
     }),
     new MiniCssExtractPlugin({
       filename: devMode ? '[name].css' : '[name].[hash].css',
