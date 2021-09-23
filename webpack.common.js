@@ -8,6 +8,8 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { HotModuleReplacementPlugin } = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const devMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
@@ -46,6 +48,8 @@ module.exports = {
     ], //压缩css
     runtimeChunk: 'single',
     splitChunks: {
+      minSize: 30000,
+      maxSize: 3000000,
       cacheGroups: {
         react: {
           test: /[\\/]node_modules[\\/](react|react-dom|react-router|react-router-dom)[\\/]/, //test: /[\\/]node_modules[\\/]/,
@@ -113,7 +117,7 @@ module.exports = {
         test: /\.(eot|ttf|woff|woff2|svg)(\?.+)?$/,
         type: 'asset/resource',
         generator: {
-          filename: 'resource/[name].[hash:8][ext]', // [ext]前面自带"."
+          filename: 'resource/[name][hash:8][ext]', // [ext]前面自带"."
         },
       },
       // Webpack4使用url-loader实现
@@ -132,18 +136,25 @@ module.exports = {
     ],
   },
   plugins: [
+    new ProgressBarPlugin({ format: `:msg [:bar] :percent time :elapsed s` }),// 进度条
     new BundleAnalyzerPlugin(), //打包体积可视化分析
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './public/index.html',
       filename: 'index.html',
-      favicon: './public/favicon.png'
+      favicon: './public/favicon.png',
     }),
     new MiniCssExtractPlugin({
       filename: devMode ? '[name].css' : '[name].[hash].css',
       chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
       ignoreOrder: true,
     }),
+    // new CopyWebpackPlugin({
+    //   patterns: [
+    //     { from: resolve(__dirname, 'public/sprites.png'), to: resolve(__dirname, 'dist') },
+    //     { from: resolve(__dirname, 'public/brython.min.js'), to: resolve(__dirname, 'dist') },
+    //   ],
+    // }),
     new HotModuleReplacementPlugin(), //HMR
   ],
 };
