@@ -12,23 +12,23 @@ interface Props extends ComProps {
  */
 const hoc = (WrappedComponent: React.ComponentType<ComProps>) => class extends React.Component<Props, { name: string }> {
     state = {
-      name: 'hoc',
+        name: 'hoc',
     }
 
     render() {
-      return (
-        <div>
-          <h2>
+        return (
+            <div>
+                <h2>
             this is
-            { this.state.name }
-          </h2>
-          <p>
+                    { this.state.name }
+                </h2>
+                <p>
             url :
-            { this.props.url }
-          </p>
-          <WrappedComponent {...this.props} />
-        </div>
-      );
+                    { this.props.url }
+                </p>
+                <WrappedComponent {...this.props} />
+            </div>
+        );
     }
 };
 

@@ -36,16 +36,16 @@ const Title = styled.h3`
 
 // const NewListFetch = SuspenseHoc(NewList);
 const List = () => {
-  const [page, setPage] = useState(1);
-  // const fetchNewList = useCallback(wrapPromise(getNewList, page), [page]);
-  const fetch = useCallback(() => getNewList(page), [page]);
-  const [isFetching, res] = useFetch<any>(fetch);
+    const [page, setPage] = useState(1);
+    // const fetchNewList = useCallback(wrapPromise(getNewList, page), [page]);
+    const fetch = useCallback(() => getNewList(page), [page]);
+    const [isFetching, res] = useFetch<any>(fetch);
 
-  return <Container>
-    <Link to="/">
-      <NavLink>redirect to home</NavLink>
-    </Link>
-    {/* <Title>Suspense List</Title>
+    return <Container>
+        <Link to="/">
+            <NavLink>redirect to home</NavLink>
+        </Link>
+        {/* <Title>Suspense List</Title>
     <p>page: { page }</p>
     <Pages>
       <li onClick={ () => setPage(1) }> 1 </li>
@@ -54,18 +54,18 @@ const List = () => {
     <Suspense fallback={ <div>Fetching Data ...</div> }>
       <NewListFetch fetch={ fetchNewList } />
     </Suspense> */}
-    <Title>Hooks List</Title>
-    <p>page: { page }</p>
-    <Pages>
-      <li onClick={ () => setPage(1) }> 1 </li>
-      <li onClick={ () => setPage(2) }> 2 </li>
-    </Pages>
-    {
-      isFetching
-        ? <div>loading...</div>
-        : <FetchList res={ res } />
-    }
-  </Container>
+        <Title>Hooks List</Title>
+        <p>page: { page }</p>
+        <Pages>
+            <li onClick={ () => setPage(1) }> 1 </li>
+            <li onClick={ () => setPage(2) }> 2 </li>
+        </Pages>
+        {
+            isFetching
+                ? <div>loading...</div>
+                : <FetchList res={ res } />
+        }
+    </Container>
 }
 
 export default List

@@ -10,11 +10,11 @@ const Context = createContext(null);
 
 export const GetContext: () => { state: State, action: Actions } = () => useContext(Context);
 export const Provider = (props: JSX.IntrinsicAttributes & React.ProviderProps<any>) => {
-  const [state, commit] = useReducer(rootReducer, states);
-  const action = bindActions(store, commit);
-  dispatch = commit;
-  console.log(state); // develop log
-  return useMemo(() => <Context.Provider { ...props } value={ { state, action } } />, [state, action, props]);
+    const [state, commit] = useReducer(rootReducer, states);
+    const action = bindActions(store, commit);
+    dispatch = commit;
+    console.log(state); // develop log
+    return useMemo(() => <Context.Provider { ...props } value={ { state, action } } />, [state, action, props]);
 };
 
 export default Context;

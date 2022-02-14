@@ -11,23 +11,23 @@ import '../public/index.css';
 const lazyComponent = (name: string) => lazy(() => import(`./components/${name}`));
 
 render(
-  <Provider value>
-    <GlobalStyle />
-    <Router>
-      <Switch>
-        <Suspense fallback={ <PageLoad /> }>
-          {
-            pages.map((p, i) => <Route
-              key={ i }
-              exact={ p.exact }
-              path={ p.path }
-              component={ lazyComponent(p.name) }
-            />)
-          }
-          <Redirect to="/" />
-        </Suspense>
-      </Switch>
-    </Router>
-  </Provider>,
-  document.getElementById('root'),
+    <Provider value>
+        <GlobalStyle />
+        <Router>
+            <Switch>
+                <Suspense fallback={ <PageLoad /> }>
+                    {
+                        pages.map((p, i) => <Route
+                            key={ i }
+                            exact={ p.exact }
+                            path={ p.path }
+                            component={ lazyComponent(p.name) }
+                        />)
+                    }
+                    <Redirect to="/" />
+                </Suspense>
+            </Switch>
+        </Router>
+    </Provider>,
+    document.getElementById('root'),
 );

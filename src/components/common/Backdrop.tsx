@@ -24,12 +24,12 @@ const PopLayer = styled.div`
 }`
 
 const Backdrop: React.FC<{ visible: boolean }> = ({ children, visible }) => (
-  createPortal(
-    <PopLayer active={ visible }>
-      { children }
-    </PopLayer>,
-    document.getElementById('modal-target'),
-  )
+    createPortal(
+        <PopLayer active={ visible }>
+            { children }
+        </PopLayer>,
+        document.getElementById('modal-target'),
+    )
 );
 
 export default Backdrop;

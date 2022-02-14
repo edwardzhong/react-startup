@@ -49,21 +49,21 @@ const Footer = styled.footer`
 
 let mousePos = { x: '50%', y: '50%' };
 const getClickPosition = function getClickPosition(e: MouseEvent) {
-  mousePos = {
-    x: (e.pageX - window.innerWidth / 2 + 150) + 'px',
-    y: (e.pageY - 180) + 'px'
-  };
-  // 100ms 内发生过点击事件，则从点击位置动画展示
-  // 否则直接 zoom 展示
-  // 这样可以兼容非点击方式展开
-  // 只有点击事件支持从鼠标位置动画展开
-  setTimeout(() => {
-    mousePos = { x: '50%', y: '50%' };
-  }, 100);
+    mousePos = {
+        x: (e.pageX - window.innerWidth / 2 + 150) + 'px',
+        y: (e.pageY - 180) + 'px'
+    };
+    // 100ms 内发生过点击事件，则从点击位置动画展示
+    // 否则直接 zoom 展示
+    // 这样可以兼容非点击方式展开
+    // 只有点击事件支持从鼠标位置动画展开
+    setTimeout(() => {
+        mousePos = { x: '50%', y: '50%' };
+    }, 100);
 };
 
 if (typeof window !== 'undefined' && window.document && window.document.documentElement) {
-  document.documentElement.addEventListener('click', getClickPosition);
+    document.documentElement.addEventListener('click', getClickPosition);
 }
 
 type Option = {
@@ -77,63 +77,63 @@ type Option = {
 
 class Model extends Component {
   state: Option = {
-    visible: false,
-    title: '',
-    content: '',
-    onOk: () => { },
-    onCancel: () => { },
+      visible: false,
+      title: '',
+      content: '',
+      onOk: () => { },
+      onCancel: () => { },
   }
   open = (opt: Option) => {
-    this.setState({ ...opt });
+      this.setState({ ...opt });
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({ visible: true });
-    }, 50);
+      setTimeout(() => {
+          this.setState({ visible: true });
+      }, 50);
   }
 
   close = () => {
-    this.setState({ visible: false });
-    setTimeout(() => {
-      document.getElementById('modal-target').innerHTML = '';
-    }, 350);
+      this.setState({ visible: false });
+      setTimeout(() => {
+          document.getElementById('modal-target').innerHTML = '';
+      }, 350);
   }
 
   cancel = () => {
-    this.close();
-    this.state.onCancel();
+      this.close();
+      this.state.onCancel();
   }
 
   confirm = () => {
-    this.close();
-    this.state.onOk();
+      this.close();
+      this.state.onOk();
   }
 
   render() {
-    const { visible, title, content } = this.state
-    return <>
-      <Backdrop visible={ visible } >
-        <PopLayer active={ visible } style={ { transformOrigin: `${mousePos.x} ${mousePos.y}` } }>
-          <Body>
-            { title && <h3> { title }</h3> }
-            { content && <p>{ content }</p> }
-          </Body>
-          <Footer>
-            <a onClick={ this.cancel }> cancel</a>
-            <a onClick={ this.confirm }> yes</a>
-          </Footer>
-        </PopLayer>
-      </Backdrop>
-    </>
+      const { visible, title, content } = this.state
+      return <>
+          <Backdrop visible={ visible } >
+              <PopLayer active={ visible } style={ { transformOrigin: `${mousePos.x} ${mousePos.y}` } }>
+                  <Body>
+                      { title && <h3> { title }</h3> }
+                      { content && <p>{ content }</p> }
+                  </Body>
+                  <Footer>
+                      <a onClick={ this.cancel }> cancel</a>
+                      <a onClick={ this.confirm }> yes</a>
+                  </Footer>
+              </PopLayer>
+          </Backdrop>
+      </>
   }
 }
 
 const openDialog = (opt: Option) => {
-  const div = document.createElement('div');
-  document.body.appendChild(div);
-  const Box = ReactDOM.render(React.createElement(Model), div);
-  opt.el = div;
-  return Box.open(opt)
+    const div = document.createElement('div');
+    document.body.appendChild(div);
+    const Box = ReactDOM.render(React.createElement(Model), div);
+    opt.el = div;
+    return Box.open(opt)
 };
 export default openDialog;

@@ -1,9 +1,9 @@
 import React from 'react';
 
 const PageLoad = () => (
-  <div style={{ paddingTop: 100, textAlign: 'center' }}>
+    <div style={{ paddingTop: 100, textAlign: 'center' }}>
     Loading...
-  </div>
+    </div>
 );
 
 export default PageLoad;
