@@ -44,7 +44,7 @@ function stringFormat(str: string, ...args: any[]): string {
     });
 }
 
-export const formatDate = (date: Date) => {
+function formatDate (date: Date) {
     const year = date.getFullYear()
     const month = date.getMonth() + 1
     const day = date.getDate()
@@ -367,6 +367,7 @@ export {
     deepCopy,
     randomCode,
     stringFormat,
+    formatDate,
     formatTime,
     htmlEncode,
     htmlDecode,
