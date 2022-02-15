@@ -7,9 +7,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { HotModuleReplacementPlugin } = require('webpack');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const devMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
@@ -23,9 +22,7 @@ module.exports = {
         alias: {
             '@': resolve(__dirname, 'src'),
         },
-        // 配置 省略文件路径的后缀名。默认省略js和json。也是webpack默认认识的两种文件类型
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
-        // 告诉webpack解析模块是去找哪个目录，该配置明确告诉webpack，直接去上一层找node_modules。
         modules: [resolve(__dirname, './node_modules')],
     },
     cache: {
@@ -45,11 +42,9 @@ module.exports = {
             new CssMinimizerPlugin({
                 parallel: 2,
             }),
-        ], //压缩css
+        ],
         runtimeChunk: 'single',
         splitChunks: {
-            minSize: 30000,
-            maxSize: 3000000,
             cacheGroups: {
                 react: {
                     test: /[\\/]node_modules[\\/](react|react-dom|react-router|react-router-dom)[\\/]/, //test: /[\\/]node_modules[\\/]/,
@@ -90,37 +85,17 @@ module.exports = {
                     },
                 ],
             },
-            // {
-            //   test: /\.js?$/,
-            //   exclude: /node_modules/,
-            //   use: ['cache-loader', 'babel-loader'], //'eslint-loader'
-            // },
-            // {
-            // 	test: /\.pug$/,
-            // 	use: ['html-loader', 'pug-html-loader'],
-            // },
-            // {
-            //   test: /\.html$/,
-            //   use: 'html-loader',
-            // },
-            // {
-            // 	test: /\.scss$/,
-            // 	exclude: /node_modules/,
-            // 	use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
-            // },
             {
                 test: /\.css$/,
                 use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
             },
-            // Webpack4使用file-loader实现
             {
                 test: /\.(eot|ttf|woff|woff2|svg)(\?.+)?$/,
                 type: 'asset/resource',
                 generator: {
-                    filename: 'resource/[name][hash:8][ext]', // [ext]前面自带"."
+                    filename: 'resource/[name].[hash:8][ext]',
                 },
             },
-            // Webpack4使用url-loader实现
             {
                 test: /\.(png|jpg|jpeg|gif)(\?.+)?$/,
                 type: 'asset',
@@ -129,15 +104,15 @@ module.exports = {
                 },
                 parser: {
                     dataUrlCondition: {
-                        maxSize: 10 * 1024, //超过10kb不转base64
+                        maxSize: 10 * 1024,
                     },
                 },
             },
         ],
     },
     plugins: [
-        new ProgressBarPlugin({ format: `:msg [:bar] :percent time :elapsed s` }), // 进度条
-        new BundleAnalyzerPlugin(), //打包体积可视化分析
+        new ProgressBarPlugin({ format: `:msg [:bar] :percent time :elapsed s` }),
+        new BundleAnalyzerPlugin(),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: './public/index.html',
@@ -149,12 +124,6 @@ module.exports = {
             chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
             ignoreOrder: true,
         }),
-        // new CopyWebpackPlugin({
-        //   patterns: [
-        //     { from: resolve(__dirname, 'public/sprites.png'), to: resolve(__dirname, 'dist') },
-        //     { from: resolve(__dirname, 'public/brython.min.js'), to: resolve(__dirname, 'dist') },
-        //   ],
-        // }),
         new HotModuleReplacementPlugin(), //HMR
     ],
 };

@@ -1,15 +1,15 @@
 {
     "presets": [
-        [
-            "@babel/preset-env",
-            {
-                "corejs": "3",
-                "useBuiltIns": "usage" //entry|usage
-            }
-        ],
+        "@babel/preset-env",
         "@babel/preset-react"
     ],
     "plugins": [
+        [
+            "@babel/plugin-transform-runtime",
+            {
+                "corejs": 3
+            }
+        ],
         [
             "babel-plugin-styled-components",
             {

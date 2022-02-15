@@ -1,59 +1,101 @@
-import React, { ChangeEvent, useState, useEffect, } from 'react';
-import { Link } from 'react-router-dom';
-import { GetContext } from '@/context';
-import { ListForm, Title, SubTitle, Tip, Input, LinkStyle } from './style';
+import React, { useRef } from 'react'
+import { useList } from '@/store/hooks'
+import styled from 'styled-components'
+import { blue, nowrap } from '@/mixin'
+
+export const Header = styled.h1`
+    text-align:center;
+    font-size:30px;
+`;
+
+export const Form = styled.div`
+    display:flex;
+    width:200px;
+    align-items: center;
+    margin:10px auto;
+`;
+
+export const InputText = styled.input`
+    display: block;
+    border:1px solid #eee;
+    outline: none;
+    height:24px;
+    padding: 4px;
+    margin-right:10px;
+    border-radius: 4px;
+    font-size: 14px;
+    &:focus{
+        background-color:hsl(60,80%,90%);
+    }`;
+
+export const ListContainer = styled.ul`
+    display:flex;
+    flex-flow:column nowrap;
+    width:200px;
+    margin:20px auto;
+`;
+
+export const ListItem = styled.li`
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:4px;
+    height:30px;
+    font-size:16px;
+    color:${blue};
+    cursor:pointer;
+    &:hover {
+        opacity:.6;
+    }
+    span {
+        width:120px;
+        ${nowrap}
+    }
+`;
+
+export const Button = styled.button`
+    display: block;
+    padding: 6px 10px;
+    background-color: hsl(200,100%,50%);
+    color:#fff;
+    border-width:0;
+    border-radius: 5px;
+    font-size: 14px;
+    margin: 10px 0;
+    outline: none;
+    cursor: pointer;
+    &:hover{
+        background-color: ${blue};
+    }`;
 
 const Home = () => {
-    const { state, action } = GetContext();
-    const { user } = state;
-    const { setUser } = action;
-
-    const [second, setSecond] = useState(10);
-    useEffect(() => {
-        if (second < 1) return () => { }
-        const timer = setTimeout(() => {
-            setSecond(second - 1);
-        }, 1000);
-        return () => clearTimeout(timer)
-    }, [second])
-
-    const changeName = (e: ChangeEvent) => {
-        setUser({ name: (e.target as HTMLInputElement).value });
+    const [list, addFn, removeHandler] = useList();
+    const inputRef = useRef(null);
+    const addHandler = () => {
+        const input = inputRef.current;
+        const val = input.value.trim();
+        if (!val) {
+            alert('name is null or empty');
+            return;
+        }
+        addFn(val);
+        input.value = '';
     };
 
-    const changeEmail = (e: ChangeEvent) => {
-        setUser({ email: (e.target as HTMLInputElement).value });
-    };
-
-    return <ListForm>
-        <Title>Hello Webpack React Hooks!</Title>
-        <SubTitle>this is home page</SubTitle>
-        <div>
-            <p>
-        hello,
-                { user.name }
-                { ' ' }
-        !
-            </p>
-            <p>
-        your email is
-                { user.email }
-                { ' ' }
-        !
-            </p>
-            <Tip>please change the name and email !!</Tip>
-        </div>
-        <div>
-            <Input type="text" placeholder="name" defaultValue={ user.name } onChange={ (e: ChangeEvent) => changeName(e) } />
-        </div>
-        <div>
-            <Input type="email" placeholder="email" defaultValue={ user.email } onChange={ (e: ChangeEvent) => changeEmail(e) } />
-        </div>
-        <Link css={ LinkStyle } to="/edit"> redirect to edit </Link>
-        <Link css={ LinkStyle } to="/sample"> redirect to sample </Link>
-        <Link css={ LinkStyle } to="/list"> redirect to list </Link>
-        <p>second: { second }</p>
-    </ListForm>
-};
-
-export default Home;
+    return <>
+        <Header>Hello React</Header>
+        <Form>
+            <InputText ref={ inputRef } />
+            <Button onClick={ addHandler }>Add</Button>
+        </Form>
+        <ListContainer>
+            {
+                list.map(l => <ListItem key={ l.id }>
+                    <span>{ l.name }</span>
+                    <Button onClick={ () => removeHandler(l.id) }>Delete</Button>
+                </ListItem>)
+            }
+        </ListContainer>
+    </>
+}
+export default Home

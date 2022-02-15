@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "baseUrl": ".", // import的相对起始路径
-        "outDir": "./dist", // 构建输出目录，但因为使用了`webpack`，所以这个配置并没什么用
+        "outDir": "./dist",
         "module": "esnext",
         "target": "esnext",
         "allowSyntheticDefaultImports": true,

@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { render } from 'react-dom';
 import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
-import { Provider } from './context';
+import { RecoilRoot } from 'recoil';
 import PageLoad from './components/Pageload';
 import pages from './config/page'
 import GlobalStyle from './globalStyle';
@@ -11,7 +11,7 @@ import '../public/index.css';
 const lazyComponent = (name: string) => lazy(() => import(`./components/${name}`));
 
 render(
-    <Provider value>
+    <RecoilRoot>
         <GlobalStyle />
         <Router>
             <Switch>
@@ -28,6 +28,6 @@ render(
                 </Suspense>
             </Switch>
         </Router>
-    </Provider>,
+    </RecoilRoot>,
     document.getElementById('root'),
 );

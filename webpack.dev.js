@@ -3,16 +3,14 @@ const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
     mode: 'development',
-    devtool: 'eval-cheap-module-source-map',
+    devtool: 'inline-source-map',
     target: 'web',
     devServer: {
-        https: true,
         contentBase: './dist',
-        host: '0.0.0.0',
         port: 4001,
         compress: true,
-        open: true, //自动打开浏览器
-        historyApiFallback: true,
-        hot: true, //hmr
+        open: true,
+        historyApiFallback: false,
+        hot: true,
     },
 });
